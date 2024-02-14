@@ -33,13 +33,14 @@ async def embed(ctx, state, percentage, msg, channel_count):
   embed.set_footer(text='Channel Shuffler',icon_url=client.user.avatar)
   embed.add_field(name='Progress:', value=f'{percentage}%', inline=False)
 
-  msg = await ctx.respond(embed=embed) if msg == None else await msg.edit(embed=embed)
+  msg = await ctx.send(embed=embed) if msg == None else await msg.edit(embed=embed)
   return msg
 
 
 @client.slash_command()
 @commands.cooldown(1, 300, commands.BucketType.guild)
 async def shuffle(ctx):
+  await ctx.respond()
   vcs = ctx.guild.voice_channels
   immutable_length = len(vcs) # Keeping this stored instead of using ctx.guild.voice_channels just incase the length changes during execution
   msg = await embed(ctx, "Shuffling", 0, None, immutable_length)
