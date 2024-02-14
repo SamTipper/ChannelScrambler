@@ -1,0 +1,10 @@
+version: '3.11'
+
+services:
+
+  ChannelShuffler:
+
+    image: channel_shuffler
+    build:
+      dockerfile: ./Dockerfile
+      context: .
