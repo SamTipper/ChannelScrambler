@@ -2,6 +2,9 @@ from os import environ
 import discord
 from random import randint, choice
 from discord.ext import commands
+from dotenv import load_dotenv
+
+load_dotenv()
 
 TOKEN = environ['TOKEN']
 intents = discord.Intents.default()
