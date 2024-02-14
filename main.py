@@ -33,7 +33,7 @@ async def embed(ctx, state, percentage, msg, channel_count):
   embed.set_footer(text='Channel Shuffler',icon_url=client.user.avatar)
   embed.add_field(name='Progress:', value=f'{percentage}%', inline=False)
 
-  msg = await ctx.respond(embed=embed) if msg == None else await msg.edit_message(embed=embed)
+  msg = await ctx.respond(embed=embed) if msg == None else await msg.edit_original_response(embed=embed)
   return msg
 
 
