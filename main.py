@@ -54,5 +54,34 @@ async def shuffle(ctx):
 
   await embed(ctx, "Finished Shuffling", 100, msg, immutable_length)
 
+@client.slash_command()
+async def shuffletop(ctx, amount: int = 1):
+  try:
+    await ctx.defer()
+    more_than_5 = False
+
+    if amount > 5:
+      amount = 5
+      more_than_5 = True
+
+    vcs = ctx.guild.voice_channels[1::]
+    vc_names = []
+
+    for _ in range(amount):
+      new_top_channel = vcs.pop(vcs.index(choice(vcs)))
+      vc_names.append(new_top_channel.name)
+      await new_top_channel.edit(position=0, sync_permissions=True)
+
+    vc_names = ", ".join(vc_names)
+
+    if amount == 1:
+      await ctx.respond(f"{vc_names} is now the top channel!")
+    elif more_than_5:
+      await ctx.respond(f"You can't shuffle more than 5 channels at once! Defaulting to 5.\n{vc_names} are now the top channels!")
+    else:
+      await ctx.respond(f"{vc_names} are now the top channels!")
+
+  except Exception as e:
+    await ctx.respond(f"An error occurred during shuffling: {str(e)}")
 
 client.run(TOKEN)
